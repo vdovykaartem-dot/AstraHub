@@ -12,8 +12,8 @@ getgenv().Astra = {
     Legit = true
 }
 
--- УВАГА: Залиш це посилання, якщо не маєш власного репозиторію з компонентами (ESP, Environment тощо).
-local BaseUrl = "https://raw.githubusercontent.com/therealcookiemonsterof1966/AbysallContinued/main/"
+-- Змінено URL на AstraHub, якщо файли розміщені на іншому репозиторії
+local BaseUrl = "https://raw.githubusercontent.com/therealcookiemonsterof1966/AstraHub/main/"
 
 getgenv().Astra = {
     Environment = loadstring(game:HttpGet(BaseUrl .. "Components/Environment.luau"))(),
@@ -38,24 +38,20 @@ local Services = setmetatable({}, {
 })
 
 if Astra.Environment.writefile and Astra.Environment.readfile then
-    if not Astra.Environment.isfile("Astra/UserData.json") then
+    -- База даних перероблена на Astra
+    if not Astra.Environment.isfile("Astra/UserData.json") then[cite: 1]
         local Data = {
             TotalExecutions = 0,
             UILibrary = "Obsidian"
         }
 
-        -- Створюємо нову директорію, якщо вона підтримується експлойтом
-        if isfolder and not isfolder("Astra") then
-            makefolder("Astra")
-        end
-
         Astra.Environment.writefile(
-            "Astra/UserData.json",
+            "Astra/UserData.json",[cite: 1]
             Services.HttpService:JSONEncode(Data)
         )
     end
 
-    local UserData = Astra.Environment.readfile("Astra/UserData.json")
+    local UserData = Astra.Environment.readfile("Astra/UserData.json")[cite: 1]
     local Decoded = Services.HttpService:JSONDecode(UserData)
 
     if not Decoded.TotalExecutions then
@@ -72,7 +68,7 @@ if Astra.Environment.writefile and Astra.Environment.readfile then
     Astra.UILibrary = Decoded.UILibrary
 
     Astra.Environment.writefile(
-        "Astra/UserData.json",
+        "Astra/UserData.json",[cite: 1]
         Services.HttpService:JSONEncode(Decoded)
     )
 end
@@ -86,7 +82,7 @@ Astra.Analytics = loadstring(game:HttpGet(
 ))()
 
 
-Astra.SavePath = "Doors/Game"
+Astra.SavePath = "Astra/Doors/Game"[cite: 1]
 
 local Library = Astra.Interface.Library
 local SaveManager = Astra.Interface.SaveManager
@@ -107,8 +103,6 @@ local Services = setmetatable({}, {
 		return CloneReference(game:GetService(Name))
 	end
 })
-
-
 
 -- archives locals
 local DroneWalkedIntoParents = {}
@@ -139,8 +133,6 @@ local HonchoProcessedRooms = {}
 local HonchoESPObjects = {}
 
 -- Stairwell locals
-
-
 
 local Globals = {}
 local Connections = {}
@@ -436,10 +428,6 @@ Container.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 if not Library.Scheme then
 	Library.Scheme = setmetatable({}, {
 		__index = function(Self, Name)
-            -- Кольори космічної теми для повідомлень
-            if Name == "BackgroundColor" then return Color3.fromRGB(8, 12, 25) end
-            if Name == "AccentColor" then return Color3.fromRGB(0, 170, 255) end
-            if Name == "FontColor" then return Color3.fromRGB(255, 255, 255) end
 			return Library[Name]
 		end
 	})
@@ -458,7 +446,7 @@ function NotificationLibrary:Notify(TitleText, Desc, Delay)
 		Notification.Name = "Notification"
 		Notification.Parent = Container
 		Notification.BackgroundColor3 = Library.Scheme.BackgroundColor
-		Notification.BackgroundTransparency = 0.2
+		Notification.BackgroundTransparency = 0.4
 		Notification.BorderSizePixel = 0
 		Notification.Position = UDim2.new(1, 5, 0, 60 + (60 * NotificationLibrary.LiveNotifications))
 		Notification.Size = UDim2.new(0, 420, 0, 50)
@@ -633,7 +621,7 @@ Globals.DoorsNotify = function(NotifyOptions)
 	end)
 end
 
-Globals.STX = loadstring(game:HttpGet("https://raw.githubusercontent.com/bocaj111004/Abysall/refs/heads/main/Components/STX.luau"))()
+Globals.STX = loadstring(game:HttpGet("https://raw.githubusercontent.com/bocaj111004/Astra/refs/heads/main/Components/STX.luau"))()
 Functions.Notify = function(Settings)
 	local HiddenContainer = GetHiddenContainer()
 
@@ -641,7 +629,7 @@ Functions.Notify = function(Settings)
 		Settings.Body = "..."
 	end
 
-	if not Options.NotifyStyle or Options.NotifyStyle.Value == "Astra" then
+	if not Options.NotifyStyle or Options.NotifyStyle.Value == "Astra Hub" then
 		local Sound = Instance.new("Sound", HiddenContainer)
 		Sound.SoundId = "rbxassetid://8784885431"
 		Sound.Volume = (Toggles.NotifyPlaySound and Toggles.NotifyPlaySound.Value and Options.NotifySoundVolume.Value) or (Toggles.NotifyPlaySound and 0 or 3)
@@ -752,7 +740,7 @@ end
 
 if not LocalPlayer.Character or not CurrentRooms:FindFirstChildOfClass("Model") then
 	Functions.Notify({ Title = "Waiting for the game to load..." })
-	queue_on_teleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/therealcookiemonsterof1966/AbysallContinued/main/Games/Doors/Main.luau"))()]])
+	queue_on_teleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/therealcookiemonsterof1966/AstraHub/main/Games/Doors/Main.luau"))()]])
 	while not LocalPlayer.Character or not CurrentRooms:FindFirstChildOfClass("Model") do
 		task.wait()
 	end
@@ -1219,9 +1207,10 @@ Functions.GetRandomCode = function()
     return NewCode
 end
 
+-- Перероблено вікно на Astra Hub Edition та налаштовано космічну блакитну тему
 local Window = Library:CreateWindow({
 	Title = "Astra Hub",
-	Footer = "Astra Hub Edition",
+	Footer = "Astra Hub Edition",[cite: 1]
 	NotifySide = "Right",
 	ShowCustomCursor = false,
 	AutoShow = true,
@@ -1231,20 +1220,25 @@ local Window = Library:CreateWindow({
 	CornerRadius = 6,
 })
 
--- Космічна Блакитна Тема (Cosmic Space Theme Override)
+-- Космічна та блакитна тема для UI та кнопок Toggle / Lock
+if Library.Scheme then
+    Library.Scheme.BackgroundColor = Color3.fromRGB(10, 15, 30)
+    Library.Scheme.MainColor = Color3.fromRGB(15, 20, 40)
+    Library.Scheme.AccentColor = Color3.fromRGB(0, 190, 255)
+    Library.Scheme.OutlineColor = Color3.fromRGB(30, 40, 70)
+    Library.Scheme.FontColor = Color3.fromRGB(240, 248, 255)
+end
 if ThemeManager then
     ThemeManager:SetCustomTheme({
-        BackgroundColor = Color3.fromRGB(8, 12, 25),   -- Глибокий космічний фон
-        MainColor = Color3.fromRGB(15, 20, 35),        -- Трохи світліший фон секцій
-        AccentColor = Color3.fromRGB(0, 170, 255),     -- Блакитний колір кнопок (Toggle/Lock)
-        OutlineColor = Color3.fromRGB(20, 30, 50),     -- Колір ліній / рамок
-        FontColor = Color3.fromRGB(255, 255, 255),     -- Білий текст
+        BackgroundColor = Color3.fromRGB(10, 15, 30),
+        MainColor = Color3.fromRGB(15, 20, 40),
+        AccentColor = Color3.fromRGB(0, 190, 255),
+        OutlineColor = Color3.fromRGB(30, 40, 70),
+        FontColor = Color3.fromRGB(240, 248, 255)
     })
 end
 
--- Data
-
-Astra.Interface.ApplyInfoTab(Window)
+-- Видалено виклик Astra.Interface.ApplyInfoTab(Window), який генерував Info, Changelog, Credits, Community[cite: 1]
 
 local Tabs = {
 	General  = Window:AddTab("General", "house"),
@@ -1490,28 +1484,6 @@ Groupboxes.Debug:AddButton({
 	Func = function()
 		if not Character then return end
 		local Pivot = Character:GetPivot()
-		-- Too lazy to loop this
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
-		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
 		Character:PivotTo(Pivot + Vector3.new(0, -120 - Pivot.Position.Y, 0))
 	end
 })
@@ -1722,12 +1694,6 @@ Toggles.BypassJeff:OnChanged(function(Value)
 	end
 end)
 
-
-
-
-
-
-
 -- Archives
 
 Groupboxes.Archives_Misc = Tabs.Archives:AddRightGroupbox("Exploits / Anti")
@@ -1753,10 +1719,6 @@ TimeShowerLabel.TextXAlignment = Enum.TextXAlignment.Left
 TimeShowerLabel.Text = "Time: --:--"
 TimeShowerLabel.Visible = false
 TimeShowerLabel.Parent = Container
-
-
-
-
 
 Toggles.HonchoCorrectBoxESP:OnChanged(function(Value)
 	if HonchoCorrectBoxConnection then
@@ -1950,9 +1912,6 @@ task.spawn(function()
 	end
 end)
 
-
-
-
 local function StopTimeShower()
 	TimeShowerToken += 1
 	if TimeShowerConnection then
@@ -2000,7 +1959,6 @@ Toggles.BypassDronesStampede:OnChanged(function(enabled)
 		end
 	end)
 end)
-
 
 Groupboxes.Archives_Bypasses = Tabs.Archives:AddLeftGroupbox("Bypasses")
 Groupboxes.Archives_Bypasses:AddToggle("BypassWater", { Text = "Bypass Electric Water", Default = false, Tooltip = "Prevents electric water from hurting you." })
@@ -2704,4 +2662,3 @@ Groupboxes.Exploits_BypassRight:AddToggle("PositionSpoof", {
 	Text = "Position Spoof", Default = false,
 	Tooltip = "Makes your character appear underground on the server, protecting you from rush-like entities."
 })
-Groupboxes.Exploits_BypassRight
