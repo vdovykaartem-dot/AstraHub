@@ -240,11 +240,11 @@ local Entities = {
 	},
 	["RushMoving"] = {
 		Alias = "Rush",
-		NotifyMessage = { Title = "Entity 'Rush' has spawned.", Body = "Find a hiding spot." }
+		NotifyMessage = { Title = "підріло 'Rush' has spawned.", Body = "Find a hiding spot." }
 	},
 	["AmbushMoving"] = {
 		Alias = "Ambush",
-		NotifyMessage = { Title = "Entity 'Ambush' has spawned.", Body = "Find a hiding spot." }
+		NotifyMessage = { Title = "підріло 'Ambush' has spawned.", Body = "Find a hiding spot." }
 	},
 	["Eyes"] = {
 		Alias = "Eyes",
